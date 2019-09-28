@@ -228,8 +228,14 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 else if(div==true){
-                    txt1.setText(var1.toString() +"/" + var2.toString());
-                    txt2.setText(var1/var2+"");
+                    if(var2==0){
+                        txt2.setText("ERROR");
+                        txt1.setText(var1.toString() + "/" + var2.toString());
+                    }
+                    else {
+                        txt1.setText(var1.toString() + "/" + var2.toString());
+                        txt2.setText(var1 / var2 + "");
+                    }
                     div = false;
                 }
 
