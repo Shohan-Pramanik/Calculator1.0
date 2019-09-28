@@ -5,13 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     TextView txt1, txt2;
-    Button btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btndot,btnadd,btnsub,btndiv,btnmul,btnequal,btnclear;
-    Boolean add, sub,mul,div;
+    Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btndot, btnadd, btnsub, btndiv, btnmul, btnequal, btnclear, btnmod, btnpow, btnroot;
+    boolean add, sub, mul, div, root, pow, mod;
     Double var1,var2;
+    ImageButton buttondelete;
 
 
     @Override
@@ -37,7 +39,11 @@ public class MainActivity extends AppCompatActivity {
         btndiv=(Button)findViewById(R.id.buttondiv);
         btnmul=(Button)findViewById(R.id.buttonmul);
         btnequal=(Button)findViewById(R.id.buttonequal);
+        btnmod=(Button)findViewById(R.id.buttonmod);
+        btnpow=(Button)findViewById(R.id.buttonpower);
+        btnroot=(Button)findViewById(R.id.buttonroot);
         btnclear=(Button)findViewById(R.id.buttonclear);
+        buttondelete=(ImageButton) findViewById(R.id.buttonimage);
 
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,43 +125,81 @@ public class MainActivity extends AppCompatActivity {
         btnadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //txt1.setText(txt1.getText()+"+");
-                var1=Double.parseDouble(txt1.getText()+"");
-                add=true;
+                if(txt2.getText()=="")
+                    var1 = Double.parseDouble(txt1.getText()+"");
+                else
+                    var1 = Double.parseDouble(txt2.getText()+"");
+                add = true;
+                txt1.setText(null);
             }
         });
 
         btnsub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //txt1.setText(txt1.getText()+"-");
-                var1=Double.parseDouble(txt1.getText()+"");
-                sub=true;
+                if(txt2.getText()=="")
+                    var1 = Double.parseDouble(txt1.getText()+"");
+                else
+                    var1 = Double.parseDouble(txt2.getText()+"");
+                sub = true;
+                txt1.setText(null);
             }
         });
 
         btnmul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //txt1.setText(txt1.getText()+"x");
-                var1=Double.parseDouble(txt1.getText()+"");
-                mul=true;
+                if(txt2.getText()=="")
+                    var1 = Double.parseDouble(txt1.getText()+"");
+                else
+                    var1 = Double.parseDouble(txt2.getText()+"");
+                mul = true;
+                txt1.setText(null);
+
             }
         });
 
         btndiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //txt1.setText(txt1.getText()+"/");
-                var1=Double.parseDouble(txt1.getText()+"");
-                div=true;
+                if(txt2.getText()=="")
+                    var1 = Double.parseDouble(txt1.getText()+"");
+                else
+                    var1 = Double.parseDouble(txt2.getText()+"");
+                div = true;
+                txt1.setText(null);
             }
         });
 
-        btnclear.setOnClickListener(new View.OnClickListener() {
+        btnmod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                txt2.setText(null);
+                if(txt2.getText()=="")
+                    var1 = Double.parseDouble(txt1.getText()+"");
+                else
+                    var1 = Double.parseDouble(txt2.getText()+"");
+                mod = true;
+                txt1.setText(null);
+            }
+        });
+
+        btnroot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                root = true;
+                txt1.setText(null);
+            }
+        });
+
+        btnpow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txt2.getText()=="")
+                    var1 = Double.parseDouble(txt1.getText()+"");
+                else
+                    var1 = Double.parseDouble(txt2.getText()+"");
+                pow = true;
+                txt1.setText(null);
             }
         });
 
@@ -165,26 +209,66 @@ public class MainActivity extends AppCompatActivity {
                 var2=Double.parseDouble(txt1.getText()+"");
 
                 if(add==true){
+                    txt1.setText(var1.toString() +"+" + var2.toString());
                     txt2.setText(var1+var2+"");
                     add=false;
                 }
 
-                if(sub==true){
-                    txt2.setText(var1+var2+"");
+                else if(sub==true){
+                    txt1.setText(var1.toString() +"-" + var2.toString());
+                    txt2.setText(var1-var2+"");
                     sub=false;
                 }
 
-                if(mul==true){
-                    txt2.setText(var1+var2+"");
+                else if(mul==true){
+                    txt1.setText(var1.toString() +"x" + var2.toString());
+                    txt2.setText(var1*var2+"");
                     mul=false;
+
                 }
 
-                if(div==true){
-                    txt2.setText(var1+var2+"");
-                    div=false;
+                else if(div==true){
+                    txt1.setText(var1.toString() +"/" + var2.toString());
+                    txt2.setText(var1/var2+"");
+                    div = false;
+                }
+
+                else if(mod==true){
+                    txt1.setText(var1.toString() +"%" + var2.toString());
+                    txt2.setText(var1%var2+"");
+                    mod = false;
+                }
+
+                else if(root==true){
+                    txt1.setText("√" + var2.toString());
+                    txt2.setText(Math.sqrt(var2)+"");
+                    root = false;
+                }
+
+                else if(pow==true){
+                    txt1.setText(var1.toString() +"^" + var2.toString());
+                    txt2.setText(Math.pow(var1, var2)+"");
+                    pow = false;
                 }
             }
         });
 
+        buttondelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str =  txt1.getText().toString();
+                str = str.substring(0,str.length()-1);
+                txt1.setText(str);
+            }
+        });
+
+        btnclear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txt1.setText("");
+                txt2.setText("");
+                add = sub = mul = div = false;
+            }
+        });
     }
 }
